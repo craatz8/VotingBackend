@@ -1,0 +1,41 @@
+using Microsoft.AspNetCore.Mvc;
+using VotingSystemBackend.Interfaces;
+using VotingSystemBackend.Models;
+
+namespace VotingSystemBackend.Controllers
+{
+    [ApiController]
+    [Route("api/voters")]
+    public class VoterController : ControllerBase
+    {
+        private readonly IVoter _voterService;
+
+        public VoterController(IVoter voterService)
+        {
+            _voterService = voterService;
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] Resident resident)
+        {
+            await _voterService.RegisterVoterAsync(resident);
+            return Ok("Voter registered successfully.");
+        }
+
+        [HttpPost("authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody] LoginRequest login)
+        {
+            var voter = await _voterService.AuthenticateVoterAsync(login.Email, login.Password);
+            if (voter == null)
+                return Unauthorized("Invalid email or password.");
+            
+            return Ok(voter);
+        }
+    }
+
+    public class LoginRequest
+    {
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+    }
+}
