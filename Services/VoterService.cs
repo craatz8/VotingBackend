@@ -40,7 +40,7 @@ namespace VotingSystemBackend.Services
             if (resident == null)
                 return null; // Authentication failed
 
-            // Generate a mock token (replace with actual token generation logic)
+           
             return Guid.NewGuid().ToString();
         }
 
