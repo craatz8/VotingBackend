@@ -8,8 +8,8 @@ namespace VotingSystemBackend.Interfaces
 {
     public interface IElection
     {
-        Task<IEnumerable<Election>> GetAllAsync();
-        Task<Election?> GetByIdAsync(int electionId);
-        Task AddAsync(Election election);
+        Task<IEnumerable<Election>> GetAllElections();
+        Task<Election?> GetElectionById(int electionId);
+        Task AddElection(Election election);
     }
 }

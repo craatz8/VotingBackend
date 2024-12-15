@@ -18,17 +18,17 @@ namespace VotingSystemBackend.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<Election>> GetAllAsync()
+        public async Task<IEnumerable<Election>> GetAllElections()
         {
             return await _context.Elections.ToListAsync();
         }
 
-        public async Task<Election?> GetByIdAsync(int electionId)
+        public async Task<Election?> GetElectionById(int electionId)
         {
             return await _context.Elections.FindAsync(electionId);
         }
 
-        public async Task AddAsync(Election election)
+        public async Task AddElection(Election election)
         {
             _context.Elections.Add(election);
             await _context.SaveChangesAsync();

@@ -18,12 +18,12 @@ namespace VotingSystemBackend.Services
             _context = context;
         }
 
-        public async Task<bool> HasVotedAsync(int residentId, int electionId)
+        public async Task<bool> HasVoted(int residentId, int electionId)
         {
             return await _context.Votes.AnyAsync(v => v.ResidentID == residentId && v.ElectionID == electionId);
         }
 
-        public async Task<Vote?> GetVoteAsync(int residentId, int electionId)
+        public async Task<Vote?> GetVote(int residentId, int electionId)
         {
             return await _context.Votes
                 .Include(v => v.Candidate)
@@ -31,9 +31,9 @@ namespace VotingSystemBackend.Services
                 .FirstOrDefaultAsync(v => v.ResidentID == residentId && v.ElectionID == electionId);
         }
 
-        public async Task SubmitVoteAsync(Vote vote)
+        public async Task CastVote(Vote vote)
         {
-            if (await HasVotedAsync(vote.ResidentID, vote.ElectionID))
+            if (await HasVoted(vote.ResidentID, vote.ElectionID))
                 throw new InvalidOperationException("You have already voted in this election.");
 
             _context.Votes.Add(vote);

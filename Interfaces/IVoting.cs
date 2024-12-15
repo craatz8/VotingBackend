@@ -7,8 +7,8 @@ namespace VotingSystemBackend.Interfaces
 {
     public interface IVoting
     {
-        Task<bool> HasVotedAsync(int residentId, int electionId);
-        Task<Vote?> GetVoteAsync(int residentId, int electionId);
-        Task SubmitVoteAsync(Vote vote);
+        Task<bool> HasVoted(int residentId, int electionId);
+        Task<Vote?> GetVote(int residentId, int electionId);
+        Task CastVote(Vote vote);
     }
 }

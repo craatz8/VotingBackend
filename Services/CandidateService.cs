@@ -19,14 +19,25 @@ namespace VotingSystemBackend.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<Candidate>> GetAllAsync()
+        public async Task<IEnumerable<Candidate>> GetAllCandidates()
         {
             return await _context.Candidates.ToListAsync();
         }
 
-        public async Task<Candidate?> GetByIdAsync(int candidateId)
+        public async Task<Candidate?> GetCandidateById(int candidateId)
         {
             return await _context.Candidates.FindAsync(candidateId);
+        }
+
+        public async Task<bool> AddCandidate(Candidate candidate)
+        {
+            // Check if the candidate already exists (you can modify this logic as needed)
+            if (_context.Candidates.Any(c => c.FirstName == candidate.FirstName && c.LastName == candidate.LastName))
+                return false;
+
+            _context.Candidates.Add(candidate);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }
