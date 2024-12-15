@@ -21,13 +21,13 @@ namespace VotingSystemBackend.Controllers
             try
             {
                 var result = await _voterService.RegisterVoter(resident);
-                if (!result) return BadRequest("Voter registration failed.");
-                return Ok("Voter registered successfully.");
+                if (!result) return BadRequest("Voter registration failed.\n");
+                return Ok("Voter registered successfully.\n");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error during voter registration: {ex.Message}");
-                return StatusCode(500, "An internal error occurred.");
+                Console.WriteLine($"Error during voter registration: {ex.Message}\n");
+                return StatusCode(500, "An internal error occurred.\n");
             }
         }
 
@@ -35,7 +35,7 @@ namespace VotingSystemBackend.Controllers
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
             var token = await _voterService.Authenticate(loginRequest.Email, loginRequest.Password);
-            if (string.IsNullOrEmpty(token)) return Unauthorized("Invalid credentials.");
+            if (string.IsNullOrEmpty(token)) return Unauthorized("Invalid credentials.\n");
             return Ok(new { Token = token });
         }
 
@@ -43,7 +43,7 @@ namespace VotingSystemBackend.Controllers
         public async Task<IActionResult> GetVoterDetails(int id)
         {
             var voter = await _voterService.GetVoterById(id);
-            if (voter == null) return NotFound("Voter not found.");
+            if (voter == null) return NotFound("Voter not found.\n");
             return Ok(voter);
         }
     }

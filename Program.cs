@@ -6,7 +6,10 @@ using VotingSystemBackend.Services;   // For VoterService, VotingService, Electi
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.WriteIndented = true; // Enable pretty JSON formatting
+});
 // Add DbContext with connection string
 builder.Services.AddDbContext<VotingDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

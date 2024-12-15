@@ -14,6 +14,11 @@ namespace VotingSystemBackend.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Resident>().ToTable("Resident");
+            modelBuilder.Entity<Candidate>().ToTable("Candidate");
+            modelBuilder.Entity<Election>().ToTable("Election");
+            modelBuilder.Entity<Vote>().ToTable("Vote");
+
             // Configure relationships for Election
             modelBuilder.Entity<Election>()
                 .HasOne(e => e.CandidateAEntity)

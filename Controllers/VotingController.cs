@@ -20,14 +20,14 @@ namespace VotingSystemBackend.Controllers
         public async Task<IActionResult> CastVote(int electionId, [FromBody] Vote vote)
         {
             if (vote == null || vote.ResidentID <= 0 || vote.CandidateID <= 0)
-                return BadRequest("Vote, ResidentID, and CandidateID must be provided.");
+                return BadRequest("Vote, ResidentID, and CandidateID must be provided.\n");
 
             // Ensure that the passed electionId matches the vote's ElectionID
             if (vote.ElectionID != electionId)
-                return BadRequest("The election ID in the vote does not match the requested election ID.");
+                return BadRequest("The election ID in the vote does not match the requested election ID.\n");
 
             if (await _votingService.HasVoted(vote.ResidentID, electionId))
-                return BadRequest("You have already voted in this election.");
+                return BadRequest("You have already voted in this election.\n");
 
             await _votingService.CastVote(vote);
             return Ok("Vote cast successfully.");
@@ -39,7 +39,7 @@ namespace VotingSystemBackend.Controllers
             // Ensure residentId is valid
             var vote = await _votingService.GetVote(residentId, electionId);
             if (vote == null)
-                return NotFound("No vote found for this election and resident.");
+                return NotFound("No vote found for this election and resident.\n");
 
             return Ok(vote);
         }

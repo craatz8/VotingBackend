@@ -27,7 +27,7 @@ namespace VotingSystemBackend.Controllers
         public async Task<IActionResult> GetElectionById(int id)
         {
             var election = await _electionService.GetElectionById(id);
-            if (election == null) return NotFound("Election not found.");
+            if (election == null) return NotFound("Election not found.\n");
             return Ok(election);
         }
 
@@ -35,13 +35,13 @@ namespace VotingSystemBackend.Controllers
         public async Task<IActionResult> AddElection([FromBody] Election election)
         {
             if (string.IsNullOrEmpty(election.Office))
-                return BadRequest("Election office name is required.");
+                return BadRequest("Election office name is required.\n");
 
             if (election.CandidateA <= 0)
-                return BadRequest("Valid CandidateA is required.");
+                return BadRequest("Valid CandidateA is required.\n");
 
             await _electionService.AddElection(election);
-            return Ok("Election added successfully.");
+            return Ok("Election added successfully.\n");
         }
 
     }

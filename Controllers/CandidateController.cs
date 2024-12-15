@@ -27,7 +27,7 @@ namespace VotingSystemBackend.Controllers
         public async Task<IActionResult> GetCandidateById(int id)
         {
             var candidate = await _candidateService.GetCandidateById(id);
-            if (candidate == null) return NotFound("Candidate not found.");
+            if (candidate == null) return NotFound("Candidate not found.\n");
             return Ok(candidate);
         }
 
@@ -35,11 +35,11 @@ namespace VotingSystemBackend.Controllers
         public async Task<IActionResult> AddCandidate([FromBody] Candidate candidate)
         {
             if (string.IsNullOrEmpty(candidate.FirstName) || string.IsNullOrEmpty(candidate.LastName))
-                return BadRequest("Candidate first and last name are required.");
+                return BadRequest("Candidate first and last name are required.\n");
 
             var result = await _candidateService.AddCandidate(candidate);
-            if (!result) return BadRequest("Failed to add candidate. Candidate may already exist.");
-            return Ok("Candidate added successfully.");
+            if (!result) return BadRequest("Failed to add candidate. Candidate may already exist.\n");
+            return Ok("Candidate added successfully.\n");
         }
     }
 }
