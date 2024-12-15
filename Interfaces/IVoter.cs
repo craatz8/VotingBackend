@@ -7,7 +7,8 @@ namespace VotingSystemBackend.Interfaces
 {
     public interface IVoter
     {
-        Task RegisterAsync(Resident resident);
-        Task<Resident?> AuthenticateAsync(string email, string password);
+        Task<bool> RegisterVoter(Resident resident); // Register a voter
+        Task<string?> Authenticate(string email, string password); // Authenticate a voter
+        Task<Resident?> GetVoterById(int id); // Get voter details by ID
     }
 }
